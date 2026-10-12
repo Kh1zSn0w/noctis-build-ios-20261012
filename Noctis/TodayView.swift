@@ -188,7 +188,7 @@ struct WeightSheet: View {
                     }
                 }
             }.navigationTitle("Bodyweight")
-                .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } }
+                .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
                 .onAppear { kg = String(format: "%.1f", store.profile.weight) }
         }.preferredColorScheme(.dark)
     }
