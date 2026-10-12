@@ -235,6 +235,7 @@ struct ProfileSheet: View {
                 }
             }.navigationTitle("Your baseline")
                 .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+        }
         .onAppear {
             age = "\(store.profile.age)"; height = "\(Int(store.profile.height))"
             weight = String(format: "%.1f", store.profile.weight)
