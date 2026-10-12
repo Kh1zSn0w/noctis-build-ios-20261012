@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFilter
+﻿from PIL import Image, ImageDraw, ImageFilter
 import aggdraw, random, math
 from pathlib import Path
 random.seed(12)
@@ -23,7 +23,7 @@ p.curveto(358,912,394,817,386,712)
 p.curveto(385,644,338,558,301,500)
 p.curveto(281,469,275,429,301,413)
 p.curveto(335,387,357,433,388,459)
-p.line(419,486)
+p.lineto(419,486)
 p.curveto(421,408,415,321,418,274)
 p.curveto(420,241,443,224,466,232)
 p.curveto(500,241,481,344,496,384)
@@ -51,11 +51,11 @@ p2.curveto(301,435,315,436,345,472)
 p2.curveto(383,526,416,537,434,552)
 p2.curveto(443,486,437,313,442,270)
 p2.curveto(448,251,463,257,463,288)
-p2.line(467,485)
+p2.lineto(467,485)
 p2.curveto(479,498,492,483,498,466)
 p2.curveto(515,392,522,231,538,215)
 p2.curveto(553,215,555,239,548,274)
-p2.line(539,469)
+p2.lineto(539,469)
 p2.curveto(545,505,561,493,569,457)
 p2.curveto(584,371,604,276,617,277)
 p2.curveto(646,270,593,454,589,512)
@@ -97,3 +97,4 @@ d.line((746,196,850,196), fill=(54,111,246),width=2)
 out=root/"Noctis"/"Assets.xcassets"/"AppIcon.appiconset"/"AppIcon.png"
 img.save(out,optimize=True)
 print("ICON_WRITTEN",out, out.stat().st_size)
+
