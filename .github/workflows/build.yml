@@ -1,0 +1,49 @@
+name: Build NOCTIS iOS
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 26
+        run: |
+          echo "DEVELOPER_DIR=/Applications/Xcode_26.3.app/Contents/Developer" >> "$GITHUB_ENV"
+          /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/xcodebuild -version
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        run: xcodegen generate --spec project.yml
+      - name: Compile app
+        shell: bash
+        run: |
+          set -o pipefail
+          xcodebuild -project Noctis.xcodeproj -scheme Noctis -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath DerivedData CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build.log | tail -n 75
+      - name: Package IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP=DerivedData/Build/Products/Release-iphoneos/Noctis.app
+          test -f "$APP/Noctis"
+          test "$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP/Info.plist")" = "io.github.kh1zsn0w.noctisgym"
+          mkdir -p Package/Payload
+          cp -R "$APP" Package/Payload/
+          cd Package
+          zip -q -r ../Noctis-Gym-v1.0-unsigned.ipa Payload
+          cd ..
+          unzip -t Noctis-Gym-v1.0-unsigned.ipa | tail -n 2
+      - name: Upload IPA and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Noctis-iPhone-v1.0
+          path: |
+            Noctis-Gym-v1.0-unsigned.ipa
+            build.log
+          if-no-files-found: warn
+          retention-days: 7
