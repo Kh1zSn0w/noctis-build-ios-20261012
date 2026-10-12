@@ -160,6 +160,7 @@ struct FoodSheet: View {
             }
             .navigationTitle("Food ledger").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+        }
         .preferredColorScheme(.dark)
     }
 }
