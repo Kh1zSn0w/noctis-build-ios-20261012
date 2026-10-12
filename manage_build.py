@@ -11,7 +11,7 @@ import plistlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-REPO = 'Kh1zSn0w/noctis-gym-ios-20261012'
+REPO = 'Kh1zSn0w/noctis-build-ios-20261012'
 PYFLAG = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
 ENV = dict(os.environ, GCM_INTERACTIVE='Never', GIT_TERMINAL_PROMPT='0')
 
@@ -51,7 +51,7 @@ def ensure_repo():
         if exc.code != 404:
             raise SystemExit('GitHub repository inspection HTTP ' + str(exc.code))
         try:
-            x = api('/user/repos', {'name': REPO.split('/')[1], 'private': True, 'description': 'NOCTIS personal gym and focus iOS app source', 'auto_init': False})
+            x = api('/user/repos', {'name': REPO.split('/')[1], 'private': False, 'description': 'NOCTIS personal gym and focus iOS app source', 'auto_init': False})
             print('REPOSITORY_CREATED', x['html_url'])
         except urllib.error.HTTPError as err:
             raise SystemExit('GitHub repository create HTTP ' + str(err.code))

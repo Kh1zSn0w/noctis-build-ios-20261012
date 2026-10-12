@@ -1,0 +1,5 @@
+﻿__pycache__/
+DerivedData/
+*.log
+*.xcworkspace/
+*.xcodeproj/
